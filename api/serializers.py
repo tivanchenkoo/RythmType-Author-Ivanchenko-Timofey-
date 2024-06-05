@@ -19,5 +19,5 @@ class MusicDataSerializer(serializers.ModelSerializer):
         model = MusicData
         fields = (
             'id', 'music_title', 'music_text', 'music_video_links', 'created_at',
-            'music_type'
+            'music_type', 'music_file'
         )
