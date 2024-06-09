@@ -22,8 +22,12 @@ def validate_mp3_file(value):
 class MusicData(models.Model):
     music_type = models.CharField(max_length=15, null=True, blank=True)
     music_title = models.CharField(max_length=150, null=True, blank=True)
-    music_text = models.TextField(null=True, blank=True)
+    lyrics = models.TextField(null=True, blank=True)
     music_video_links = models.CharField(max_length=1500, null=True, blank=True)
+    song_language = models.CharField(max_length=5, null=True, blank=True)
+    intro = models.IntegerField(null=True, blank=True)
+    timings = models.CharField(max_length=1000, null=True, blank=True)
+    end = models.IntegerField(null=True, blank=True)
 
     music_file = models.FileField(
         upload_to='music_file', max_length=50, validators=(validate_file_size, validate_mp3_file, ), 
