@@ -2,13 +2,20 @@ from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
-
+import os
 
 
 def validate_file_size(file):
     max_size_kb = 6000  # 6 MB
     if file.size > max_size_kb * 1024:
         raise ValidationError(f"Maximum file size {max_size_kb} kb")
+    
+
+def validate_mp3_file(value):
+    ext = os.path.splitext(value.name)[1]  
+    valid_extensions = ['.mp3']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError('Unsupported file extension. Only MP3 files are allowed.')    
 
  
 
@@ -19,7 +26,7 @@ class MusicData(models.Model):
     music_video_links = models.CharField(max_length=1500, null=True, blank=True)
 
     music_file = models.FileField(
-        upload_to='music_file', max_length=50, validators=(validate_file_size, ), 
+        upload_to='music_file', max_length=50, validators=(validate_file_size, validate_mp3_file, ), 
         null=True, blank=True, unique=True
         )
     
