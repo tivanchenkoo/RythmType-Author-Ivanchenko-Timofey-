@@ -5,13 +5,14 @@ from users.models import Users
 from music.models import MusicData
 
 from api.serializers import UsersSerializer, MusicDataSerializer
-from api.permissions import IsAdminOrReadOnly
+from api.permissions import IsAdminOrReadOnly, IsAdminOrOwner
 
 
 
 class UsersViewSet(ModelViewSet):
     queryset = Users.objects.all()
     serializer_class = UsersSerializer
+    permission_classes = (IsAdminOrOwner, )
 
 
     # Only admin has all permissions to (GET, POST, PATCH, DELETE) or read ALL data!
